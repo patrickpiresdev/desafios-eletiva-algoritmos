@@ -1,33 +1,38 @@
 #include <iostream>
 #include <math.h>
+#include <vector>
+using namespace std;
 
-void fatora(int n) {
-    int nf = 0;
+vector<int> fatora(int n) {
     int nsquared = ceil(sqrt(n));
-    int primos[nsquared];
+    vector<int> primos;
 
-    primos[nf++] = 1;
     for (int i=2; i<=nsquared; i++) {
         while (n % i == 0) {
-            primos[nf++] = i;
+            primos.push_back(i);
             n /= i;
         }
     }
 
     if (n > 1) {
-        primos[nf++] = n;
+        primos.push_back(n);
     }
 
+    return primos;
+}
+
+void printvec(vector<int> l) {
     printf("[");
-    for (int i=0; i<nf; i++) {
+    for (int i=0; i<l.size(); i++) {
         if (i != 0) printf(" ");
-        printf("%d", primos[i]);
+        printf("%d", l[i]);
     }
     printf("]\n");
 }
 
 int main() {
     int n;
-    printf("%d: ", n);
-    fatora(n);
+    scanf("%d", &n);
+    vector<int> primos = fatora(n);
+    printvec(primos);
 }
