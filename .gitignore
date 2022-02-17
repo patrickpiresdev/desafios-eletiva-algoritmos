@@ -2,4 +2,5 @@
 *.txt
 *.class
 *.idea
+.vscode
 META-INF
