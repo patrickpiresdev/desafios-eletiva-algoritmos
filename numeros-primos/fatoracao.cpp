@@ -1,38 +1,26 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
-using namespace std;
 
-vector<int> fatora(int n) {
-    int nsquared = ceil(sqrt(n));
-    vector<int> primos;
-
-    for (int i=2; i<=nsquared; i++) {
+// para numeros pequenos (ate 10000)
+std::vector<short int> fatora(short int n) {
+    std::vector<short int> fatores;
+    for (short int i=2; i<=ceil(sqrt(n)); i++) {
         while (n % i == 0) {
-            primos.push_back(i);
+            fatores.push_back(i);
             n /= i;
         }
     }
 
-    if (n > 1) {
-        primos.push_back(n);
-    }
-
-    return primos;
-}
-
-void printvec(vector<int> l) {
-    printf("[");
-    for (int i=0; i<l.size(); i++) {
-        if (i != 0) printf(" ");
-        printf("%d", l[i]);
-    }
-    printf("]\n");
+    if (n>1) fatores.push_back(n);
+    return fatores;
 }
 
 int main() {
-    int n;
-    scanf("%d", &n);
-    vector<int> primos = fatora(n);
-    printvec(primos);
+    short int n;
+    scanf("%hd", &n);
+    for (short int f : fatora(n)) {
+        printf("%hu ", f);
+    }
+    printf("\n");
 }
