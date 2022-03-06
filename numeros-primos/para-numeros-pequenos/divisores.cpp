@@ -15,6 +15,7 @@ std::vector<short int> fatora(short int n) {
     return fatores;
 }
 
+// para numeros pequenos (ate 10000)
 std::vector<short int> divisores(short int n) {
     std::vector<short int> fatores = fatora(n);
     std::vector<short int> divisores;
@@ -22,17 +23,17 @@ std::vector<short int> divisores(short int n) {
     short int k = fatores[0];
     divisores.push_back(1);
     divisores.push_back(k);
-    short int nda = 1; // numero de divisores anteriores
+    short int numero_divisores_anteriores = 1;
 
     for (short int i=1; i<fatores.size(); i++) {
         if (fatores[i] == fatores[i-1]) {
             k *= fatores[i];
         } else {
             k = fatores[i];
-            nda = divisores.size();
+            numero_divisores_anteriores = divisores.size();
         }
 
-        for (short int i=0; i<nda; i++) {
+        for (short int i=0; i<numero_divisores_anteriores; i++) {
             divisores.push_back(k*divisores[i]);
         }
     }
