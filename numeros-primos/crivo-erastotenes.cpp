@@ -1,53 +1,31 @@
 #include <iostream>
+#include <vector>
 #include <math.h>
 
-void printvec(int* vec, int n) {
-    printf("[");
-    int printed=0;
-    for (int i=2; i<=n; i++) {
-        if (vec[i] == i) {
-            printf("%d", vec[i]);
-            if (i != n) printf(" ");
-            printed++;
-        }
-    }
-    printf("]\n");
-}
-
-int* crivo(int n) {
-    int t, d;
-    int* C = (int*) malloc(sizeof(int)*(n+1));
-
-    for (int i=1; i<=n; i++) {
-        C[i] = i;
+std::vector<unsigned int> crivo(unsigned int n) {
+    std::vector<unsigned int> c;
+    for (unsigned int i=2; i<=n; i++) {
+        c.push_back(i);
     }
 
-    t = 2;
-
-    for (int i=1; i<=n/2; i++) {
-        C[t] = 2;
-        t += 2;
-    }
-
-    for (int i=3; i<=ceil(sqrt(n)); i++) {
-        if (C[i] == i) {
-            t = i*i;
-            d = i+i;
-        }
-
-        while (t<=n) {
-            if (C[t] == t) {
-                C[t] = i;
+    unsigned int k;
+    for (unsigned int i=2; i<=ceil(sqrt(n)); i++) {
+        if (c[i-2] == i) {
+            k=i+i;
+            while (k<=n) {
+                c[k-2] = 0;
+                k += i;
             }
-            t += d;
         }
     }
 
-    return C;
+    return c;
 }
 
 int main() {
-    int n = 65536;
-    int* C = crivo(n);
-    printvec(C, n);
+    unsigned int UINT_MAX = 65535;
+    for (unsigned int e : crivo(UINT_MAX)) {
+        printf("%u ", e);
+    }
+    printf("\n");
 }
